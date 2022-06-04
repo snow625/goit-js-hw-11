@@ -1,0 +1,1 @@
+{"mappings":"AACAA,QAAQC,IAAI","sources":["src/js/index.js"],"sourcesContent":["import '../css/styles.css';\nconsole.log('dasdsa');\n"],"names":["console","log"],"version":3,"file":"index.07f8177f.js.map"}
