@@ -23,17 +23,17 @@ var lightbox = new SimpleLightbox('.gallery a', {
 });
 
 async function onBtnFindMoreClick(event) {
+  if (maxPege === page) {
+    Notiflix.Notify.info(
+      "We're sorry, but you've reached the end of search results."
+    );
+    btnFindMoreEl.style.display = 'none';
+    return;
+  }
   try {
     page += 1;
     const response = await fetchImg(currentTextFind, page);
     addMoreItems(response);
-
-    if (maxPege === page) {
-      Notiflix.Notify.info(
-        "We're sorry, but you've reached the end of search results."
-      );
-      return (btnFindMoreEl.style.display = 'none');
-    }
   } catch (error) {
     Notiflix.Notify.failure(`${error.response.data}`);
   }
@@ -81,11 +81,12 @@ function makeUpFirstGallery({ data } = {}) {
   galleryEl.innerHTML = '';
   renderCardsOfGallery(data.hits);
   maxPege = Math.ceil(data.totalHits / itemsPerPage);
-  if (maxPege > 1) {
-    btnFindMoreEl.style.display = 'block';
-  } else {
-    btnFindMoreEl.style.display = 'none';
-  }
+  btnFindMoreEl.style.display = 'block';
+  // if (maxPege > 1) {
+  //   btnFindMoreEl.style.display = 'block';
+  // } else {
+  //   btnFindMoreEl.style.display = 'none';
+  // }
 }
 
 function renderCardsOfGallery(arrOfImg) {
