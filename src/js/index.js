@@ -39,8 +39,8 @@ async function onBtnFindMoreClick(event) {
   }
 }
 
-function addMoreItems(obj) {
-  renderCardsOfGallery(obj.data.hits);
+function addMoreItems({ data } = {}) {
+  renderCardsOfGallery(data.hits);
 
   const { height: cardHeight } = document
     .querySelector('.gallery')
@@ -70,17 +70,17 @@ formEl.addEventListener('submit', async event => {
   }
 });
 
-function makeUpFirstGallery(obj) {
-  if (obj.data.hits.length === 0) {
+function makeUpFirstGallery({ data } = {}) {
+  if (data.hits.length === 0) {
     return Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
-  Notiflix.Notify.success(`Hooray! We found ${obj.data.totalHits} images.`);
+  Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
 
   galleryEl.innerHTML = '';
-  renderCardsOfGallery(obj.data.hits);
-  maxPege = Math.ceil(obj.data.totalHits / itemsPerPage);
+  renderCardsOfGallery(data.hits);
+  maxPege = Math.ceil(data.totalHits / itemsPerPage);
   if (maxPege > 1) {
     btnFindMoreEl.style.display = 'block';
   } else {
